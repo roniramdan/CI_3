@@ -169,16 +169,23 @@
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarCollapse">
-          <ul class="navbar-nav me-auto mb-2 mb-md-0">
+        <ul class="navbar-nav me-auto mb-2 mb-md-0">
             <li class="nav-item">
               <a class="nav-link" aria-current="page" href="<?php echo base_url('buku'); ?>">Beranda</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" aria-current="page" href="<?php echo base_url('jenis_buku'); ?>">jenis buku</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="<?php echo base_url('buku/store'); ?>">Tambah Buku</a>
             </li>
             <li class="nav-item">
+              <a class="nav-link" aria-current="page" href="<?php echo base_url('jenis_buku/store'); ?>">Tambah Jenis Buku</a>
+            </li>
+            <li class="nav-item">
               <a class="nav-link" href="<?php echo base_url('login/logout'); ?>">Log Out</a>
             </li>
+
           </ul>
 
         </div>
@@ -201,6 +208,21 @@
         <label for="exampleInputPassword1" class="form-label">Penerbit</label>
         <input type="text" class="form-control" id="penerbit" name="penerbit">
       </div>
+      <div class='mb-3'>
+<label> Pilih jenis buku </label>
+
+<select name='id_jenis_buku' class='form-control'>
+<?php
+$list = $this->db->get('jenis_buku')->result();
+foreach($list as $key=>$value){
+?> 
+	<option value='<?php echo $value->id; ?>'> <?php echo $value->jenis_buku; ?> </option>
+
+<?php 
+}
+?>
+</select>
+</div>
       <button type="submit" class="btn btn-primary">Simpan</button>
     </form>
   </div>

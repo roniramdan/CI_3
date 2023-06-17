@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Buku extends CI_Controller
+class Jenis_buku extends CI_Controller
 {
 
 	/**
@@ -32,54 +32,53 @@ class Buku extends CI_Controller
 	}
 	public function index()
 	{
-		$data['listing'] = $this->db->query("select a.*,b.jenis_buku from buku a
-		left join jenis_buku b on b.id = a.id_jenis_buku")->result();
-		$this->load->view('buku_view', $data);
+		$data['listing'] = $this->db->get('jenis_buku')->result();
+		$this->load->view('jenis_buku_view', $data);
 	}
 
 	public function simpan()
 	{
 		$data = array('nama_buku' => 'Media Informasi 2010', 'penerbit' => 'Gautama');
-		$this->db->insert('buku', $data);
+		$this->db->insert('jenis_buku', $data);
 	}
 
 	public function store()
 	{
-		$this->load->view('buku_store');
+		$this->load->view('jenis_buku_store');
 	}
 
 	public function save()
 	{
-		$data = array("nama_buku" => $this->input->post('nama_buku'), "penerbit" => $this->input->post('penerbit'));
-		$store = $this->db->insert('buku', $data);
+		$data = array("jenis_buku" => $this->input->post('jenis_buku'));
+		$store = $this->db->insert('jenis_buku', $data);
 		if ($store) {
-			redirect('buku');
+			redirect('jenis_buku');
 		}
 	}
 
 	public function hapus()
 	{
 		$id = $this->uri->segment(3);
-		$del = $this->db->delete('buku', array('id' => $id));
+		$del = $this->db->delete('jenis_buku', array('id' => $id));
 		if ($del) {
-			redirect('buku');
+			redirect('jenis_buku');
 		}
 	}
 
 	public function ubah()
 	{
 		$id = $this->uri->segment(3);
-		$data['fetch'] = $this->db->get_where('buku', array('id' => $id))->row();
-		$this->load->view('buku_edit', $data);
+		$data['fetch'] = $this->db->get_where('jenis_buku', array('id' => $id))->row();
+		$this->load->view('jenis_buku_edit', $data);
 	}
 
 	public function saveubah()
 	{
 		$id = $this->input->post('id');
-		$data = array("nama_buku" => $this->input->post('nama_buku'), "penerbit" => $this->input->post('penerbit'), "id_jenis_buku" =>$this->input->post('id_jenis_buku') );
-		$ubah = $this->db->where('id', $id)->update('buku', $data);
+		$data = array("jenis_buku" => $this->input->post('jenis_buku') );
+		$ubah = $this->db->where('id', $id)->update('jenis_buku', $data);
 		if ($ubah) {
-			redirect('buku');
+			redirect('jenis_buku');
 		}
 	}
 }
